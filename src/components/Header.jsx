@@ -6,6 +6,7 @@ export default function Header() {
   const navigation = [
     { name: "Dashboard", path: "/", emoji: "📊" },
     { name: "Tentang", path: "/about", emoji: "📚" },
+    
   ];
 
   return (
@@ -80,29 +81,46 @@ export default function Header() {
           </nav>
 
           {/* User/Action Area */}
-          <div className="flex items-center gap-4">
-            {/* Theme Toggle */}
-            <button className="w-10 h-10 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 transition-all duration-300 shadow-inner flex items-center justify-center text-gray-600 hover:text-gray-800 group">
-              <span className="text-lg group-hover:scale-110 transition-transform">🌙</span>
-            </button>
+            <div className="flex items-center gap-4">
+              {/* Theme Toggle */}
+              <button className="w-10 h-10 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 transition-all duration-300 shadow-inner flex items-center justify-center text-gray-600 hover:text-gray-800 group">
+                <span className="text-lg group-hover:scale-110 transition-transform">🌙</span>
+              </button>
 
-            {/* Profile/Status */}
-            <div className="hidden sm:flex items-center gap-3 pl-4 border-l border-gray-200/60">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-sm">👤</span>
-                </div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
-              </div>
-              <div className="hidden md:flex flex-col">
-                <span className="text-sm font-semibold text-gray-900">Welcome!</span>
-                <span className="text-xs text-gray-500 flex items-center gap-1">
-                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                  Ready to focus
-                </span>
-              </div>
+              {/* Profile/Status */}
+           <Link
+  to="/profile"
+  className="
+    flex items-center gap-3 
+    pl-4 
+    border-l border-gray-200/60 
+    rounded-xl px-3 py-1 
+    transition-all cursor-pointer
+    /* desktop */
+    sm:flex
+    /* mobile: posisi kanan */
+    sm:static fixed right-4 top-3 bg-white/80 sm:bg-transparent shadow sm:shadow-none rounded-2xl sm:rounded-none
+  "
+  style={{ zIndex: 999 }}
+>
+  {/* Avatar */}
+  <div className="relative">
+    <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
+      <span className="text-white font-bold text-sm">👤</span>
+    </div>
+    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
+  </div>
+
+  {/* Text (hidden on mobile) */}
+  <div className="hidden md:flex flex-col text-left">
+    <span className="text-sm font-semibold text-gray-900">Welcome!</span>
+    <span className="text-xs text-gray-500 flex items-center gap-1">
+      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+      Ready to focus
+    </span>
+  </div>
+</Link>
             </div>
-          </div>
         </div>
       </div>
 

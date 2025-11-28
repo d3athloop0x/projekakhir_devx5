@@ -8,3 +8,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>,
 )
+if (localStorage.getItem("theme") === "dark") {
+  document.documentElement.classList.add("dark");
+}
