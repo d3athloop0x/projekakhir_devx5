@@ -2,103 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 html,
 body {
   overflow-x: hidden;
 }
 
 body {
-  font-family: "Inter", "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background: #f7f7f7;        /* Light mode BG */
-  color: #222;                /* Light mode text */
-  transition: background 0.3s ease, color 0.3s ease;
+  font-family: "Inter", "Poppins", system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
+  @apply bg-white text-gray-900;
 }
 
-/* HEADER (Light Mode) */
-header {
-  background: rgba(255, 255, 255, 0.8);
-  border-bottom: 1px solid #e5e7eb;
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-/* Component defaults */
-.card,
-.panel,
-.box {
-  background: white;
-  color: #222;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-/* =========================================================
-   🎨 FOCUSFLOW THEME VARIABLES  
-   ========================================================= */
-:root {
-  --bg-main: #f7f9fc;
-  --bg-card: rgba(255, 255, 255, 0.8);
-  --bg-progress: #e5e7eb;
-
-  --text-primary: #1f2937;
-  --text-secondary: #4b5563;
-
-  --border-light: rgba(255, 255, 255, 0.6);
-
-  --header-bg: rgba(255, 255, 255, 0.8);
-  --header-border: #e5e7eb;
-
-  --gradient-blue: #3b82f6;
-  --gradient-purple: #8b5cf6;
-}
-
-/* =========================================================
-   🌙 DARK MODE THEME
-   ========================================================= */
-html.dark {
-  --bg-main: #0f1115;
-  --bg-card: rgba(30, 32, 38, 0.85);
-  --bg-progress: #2a2d33;
-
-  --text-primary: #e5e7eb;
-  --text-secondary: #9ca3af;
-
-  --border-light: rgba(255, 255, 255, 0.1);
-
-  --header-bg: rgba(18, 20, 24, 0.85);
-  --header-border: #2a2d33;
-
-  --gradient-blue: #60a5fa;
-  --gradient-purple: #a78bfa;
-}
-
-/* =========================================================
-   🧩 GLOBAL APPLY
-   ========================================================= */
-body {
-  background: var(--bg-main);
-  color: var(--text-primary);
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-header {
-  background: var(--header-bg);
-  border-bottom: 1px solid var(--header-border);
-}
-
-.card,
-.panel,
-.box {
-  background: var(--bg-card);
-  color: var(--text-primary);
-}
-
-.mobile-nav-wrapper {
-  background: var(--header-bg);
-  border-color: var(--header-border);
-}

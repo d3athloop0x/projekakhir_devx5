@@ -130,7 +130,7 @@ export default function Dashboard() {
       }
 
       return deadlineString;
-    } catch (error) {
+    } catch {
       return deadlineString;
     }
   };
