@@ -12,6 +12,10 @@ export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("newest");
 
+  const [editingTask, setEditingTask] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+
   useEffect(() => {
     localStorage.setItem("focusflow_tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -36,6 +40,23 @@ export default function Dashboard() {
 
   const handleDeleteTask = (taskId) => {
     setTasks(tasks.filter((task) => task.id !== taskId));
+  };
+
+  const handleOpenEdit = (task) => {
+    setEditingTask(task);
+    setEditTitle(task.title);
+    setEditDescription(task.description || "");
+  };
+
+  const handleSaveEdit = () => {
+    setTasks(
+      tasks.map((t) =>
+        t.id === editingTask.id
+          ? { ...t, title: editTitle, description: editDescription }
+          : t
+      )
+    );
+    setEditingTask(null);
   };
 
   const handleClearCompleted = () => {
@@ -109,7 +130,7 @@ export default function Dashboard() {
       }
 
       return deadlineString;
-    } catch (error) {
+    } catch {
       return deadlineString;
     }
   };
@@ -138,7 +159,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20">
       <Header />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-6 py-8">
         {/* Welcome Header */}
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
@@ -242,7 +263,7 @@ export default function Dashboard() {
 
             {/* Quick Actions */}
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/60">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
                 Quick Actions
               </h3>
               <div className="space-y-3">
@@ -372,13 +393,13 @@ export default function Dashboard() {
                   {sortedTasks.map((task) => (
                     <div
                       key={task.id}
-                      className={`group bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border transition-all duration-300 hover:shadow-xl ${
+                      className={`group bg-white/80 backdrop-blur-sm rounded-2xl p-6 p-4 sm:p-5 md:p-6 shadow-lg border transition-all duration-300 hover:shadow-xl ${
                         task.completed
                           ? "border-green-200/50 bg-green-50/30"
                           : "border-gray-200/50 hover:border-blue-300/50"
                       }`}
                     >
-                      <div className="flex items-start justify-between gap-4">
+                      <div className="flex flex-col gap-4">
                         <div className="flex items-start gap-4 flex-1">
                           <button
                             onClick={() => handleToggleComplete(task.id)}
@@ -428,7 +449,14 @@ export default function Dashboard() {
                           </div>
                         </div>
 
-                        <div className="flex gap-2">
+                        <div className="flex gap-3 pt-2 justify-end flex-nowrap">
+                          <button
+                            onClick={() => handleOpenEdit(task)}
+                            className="px-3 py-2 bg-yellow-500 text-white rounded-lg font-semibold hover:bg-yellow-600 transition-all"
+                          >
+                            ✏️ Edit
+                          </button>
+
                           <button
                             onClick={() => handleToggleComplete(task.id)}
                             className={`px-3 py-2 rounded-lg font-semibold transition-all ${
@@ -437,13 +465,14 @@ export default function Dashboard() {
                                 : "bg-green-600 text-white hover:bg-green-700"
                             }`}
                           >
-                            {task.completed ? "↩️" : "✅"}
+                            {task.completed ? "↩️ Undo" : "✅ Done"}
                           </button>
+
                           <button
                             onClick={() => handleDeleteTask(task.id)}
                             className="px-3 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-all"
                           >
-                            🗑️
+                            🗑️ Hapus
                           </button>
                         </div>
                       </div>
@@ -455,6 +484,42 @@ export default function Dashboard() {
           </div>
         </div>
       </main>
+      {editingTask && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Edit Tugas</h2>
+
+            <input
+              type="text"
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+              className="w-full px-4 py-2 mb-3 border rounded-xl focus:ring-2 focus:ring-blue-500"
+            />
+
+            <textarea
+              value={editDescription}
+              onChange={(e) => setEditDescription(e.target.value)}
+              className="w-full px-4 py-2 mb-3 border rounded-xl focus:ring-2 focus:ring-blue-500"
+            />
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setEditingTask(null)}
+                className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+              >
+                Batal
+              </button>
+
+              <button
+                onClick={handleSaveEdit}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

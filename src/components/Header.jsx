@@ -10,11 +10,11 @@ export default function Header() {
 
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-full mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo - Pilihan 1: Modern Gradient dengan Icon */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative">
+            <div className="relative overflow-hidden">
               {/* Main Logo Container */}
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
                 {/* Icon/Shape */}
@@ -51,7 +51,7 @@ export default function Header() {
           </Link>
 
           {/* Navigation */}
-          <nav className="flex items-center gap-1">
+          <nav className="hidden md:flex flex items-center gap-1">
             {navigation.map((item) => {
               const isActive = location.pathname === item.path;
               return (
